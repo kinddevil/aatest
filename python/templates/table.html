@@ -1,0 +1,101 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/static/ext_libs/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/ext_libs/datatables/media/css/jquery.dataTables.min.css">
+<!-- <link rel="stylesheet" href="/static/ext_libs/datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.css"></script> -->
+
+<!-- Optional theme -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
+
+<!-- <script src="/static/ext_libs/react/react.js"></script> -->
+<!-- <script src="/static/ext_libs/react/JSXTransformer.js"></script> -->
+
+<script src="/static/ext_libs/datatables/media/js/jquery.dataTables.js"></script>
+<!-- <script src="/static/ext_libs/datatables-bootstrap3-plugin/media/js/datatables-bootstrap3.js"></script> -->
+
+<div class="container-fluid">
+  <button type="button" id="xbut" class="btn btn-lg btn-success">Success</button>
+  <div id="reactcontent"></div>
+  <div id="mytablediv" /></div>
+</div>
+
+<script type="text/javascript">//jsx 
+  var CommentBox = React.createClass({
+    render: function() {
+      return (
+        React.createElement('div', {className: "commentBox"},
+          "Hello, world! I am a CommentBox."
+        )
+      );
+    }
+  });
+  console.log(document.getElementById('reactcontent'))
+
+  React.render(
+  React.createElement(CommentBox, null),
+    document.getElementById('reactcontent')
+  )
+
+  var DTable = React.createClass({
+    getInitialState: function(){
+      return {data: []}
+    },
+    componentDidMount: function(){
+      var self = this;
+      var otable = $('#mytable').dataTable({
+        "bAutoWidth": false,
+        "bDestroy": true,   
+        "ajax": "/static/data/arrays.txt",
+        // "fnDrawCallback": function() {          
+        //         self.forceUpdate();         
+        //     }, 
+      });
+      // setInterval( function () {
+      //     console.log('reload')
+      //     otable.api().ajax.reload();
+      // }, 2000 );
+    },
+      render: function(){
+        return React.createElement("table", {id: "mytable", className: "display", cellSpacing: "0", width: "100%"}, 
+            React.createElement("thead", null, 
+                React.createElement("tr", null, 
+                    React.createElement("th", null, "Name"), 
+                    React.createElement("th", null, "Position"), 
+                    React.createElement("th", null, "Office"), 
+                    React.createElement("th", null, "Extn."), 
+                    React.createElement("th", null, "Start date"), 
+                    React.createElement("th", null, "Salary")
+                )
+            ), 
+     
+            React.createElement("tfoot", null, 
+                React.createElement("tr", null, 
+                    React.createElement("th", null, "Name"), 
+                    React.createElement("th", null, "Position"), 
+                    React.createElement("th", null, "Office"), 
+                    React.createElement("th", null, "Extn."), 
+                    React.createElement("th", null, "Start date"), 
+                    React.createElement("th", null, "Salary")
+                )
+            )
+        );
+    }
+  })
+
+  React.render(
+  React.createElement(DTable, null),
+    //document.body
+    document.getElementById("mytablediv")
+  )
+  // React.renderComponent(<TodoApp />, document.body);
+
+  // $(document).ready(function() {
+  //     $('#example').dataTable( {
+  //         "ajax": "data/arrays.txt"
+  //     } );
+  // } );
+  // React.render(
+  //   <CommentBox />,
+  //   document.getElementById('reactcontent')
+  // );
+
+</script>
