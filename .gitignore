@@ -17,11 +17,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -83,17 +78,7 @@ autogen/
 bin
 build_src
 bundles/
-docker/docker
-docs/AWS_S3_BUCKET
-docs/GITCOMMIT
-docs/GIT_BRANCH
-docs/VERSION
-docs/_build
-docs/_static
-docs/_templates
-docs/changed-files
 pyenv
-vendor/pkg/
 
 # Xcode
 
