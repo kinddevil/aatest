@@ -12,6 +12,10 @@ dpiApp.config(['$routeProvider',
     $routeProvider.
       when('/table', {
         templateUrl: '/table'
+        // ,controller: 'TableCtrl'
+      }).
+      when('/dpi', {
+        templateUrl: '/dpimain'
       }).
       when('/test', {
         templateUrl: '/static/template/test.html'

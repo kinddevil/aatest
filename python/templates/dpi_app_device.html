@@ -1,0 +1,84 @@
+
+  <style>
+  .black_overlay{  display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;  background-color: black;  z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  .white_content {  display: none;  position: absolute;  top: 10%;  left: 10%;  width: 80%;  height: 80%;  padding: 16px;  border: 10px solid orange;  background-color: white;  z-index:1002;  overflow: auto;  }  </style>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='ext_libs/font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="/static/ext_libs/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/ext_libs/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/static/ext_libs/jasny-bootstrap/dist/css/jasny-bootstrap.min.css">
+
+  <link rel="stylesheet" href="/static/ext_libs/bootstrap-table/dist/bootstrap-table.min.css">
+
+ <!--  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/bs-dp.min.css">
+  <link rel="stylesheet" href="/static/css/daterangepicker-bs3.css">
+  <link rel="stylesheet" href="/static/css/menu.css"> -->
+
+<div id="deviceTable">
+<!-- data-toggle="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-toolbar="#filter-bar" data-show-filter="true" data-show-export="true" data-url="/static/data/arrays2.json" -->
+</div>
+
+<!-- JavaScript at the bottom for fast page loading -->
+
+<script type="text/javascript" src="/static/ext_libs/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/ext_libs/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/ext_libs/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<!-- <script type="text/javascript" src="/static/ext_libs/bootstrap-table/dist/extensions/filter/bootstrap-table-filter.min.js"></script> -->
+<script type="text/javascript" src="/static/ext_libs/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<script type="text/javascript" src="/static/ext_libs/bootstrap-table/dist/extensions/sorting/bootstrap-table_natural-sorting.min.js"></script>
+<script type="text/javascript" src="http://wenzhixin.net.cn/p/bootstrap-table/docs/assets/table-filter/bootstrap-table-filter.js"></script>
+<!-- <script type="text/javascript" src="/static/ext_libs/daterangepicker/lib/daterangepicker/daterangepicker.js"></script> -->
+<script type="text/javascript" src="/static/ext_libs/moment/moment.js"></script>
+<script type="text/javascript" src="https:/www.google.com/jsapi"></script>
+<!-- end scripts -->
+
+<script type="text/javascript">
+
+var deviceTable = React.createClass({
+  displayName: "Devices",
+  getInitialState: function(){
+    return {data: []}
+  },
+  componentDidMount: function(){
+    var self = this;
+    $("#AppList").bootstrapTable({
+      url: "/static/data/arrays2.json",
+      responseHandler: function(res){
+        return res.rows
+      },
+      method: "get",
+      toolbar: "#filter-bar",
+      showFilter: "true",
+      search: "true",
+      classes: 'table',
+      queryParams: function (p) {
+      return{
+        device: $('#device').val(),
+        country: $('#country').val(),
+        feeds: $('#feeds').val(),
+        mdate: $('#mdate').val(),
+        source: $('#source').val()
+        }
+      }
+    })
+  },
+  render: function() {
+    return (
+
+        /* data-toggle="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-toolbar="#filter-bar" data-show-filter="true" data-show-export="true" data-url="/static/data/arrays2.json" */
+        React.createElement("table", {id: "AppList", "data-show-refresh": "true", "data-show-toggle": "true", "data-show-columns": "true", "data-search": "true", "data-toolbar": "#filter-bar", "data-show-filter": "true", "data-show-export": "true"}, 
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", {"data-field": "app_id", "data-align": "center", "data-sortable": "true"}, "App ID"), 
+              React.createElement("th", {"data-field": "app_name", "data-align": "center", "data-sortable": "true"}, "App Name"), 
+              React.createElement("th", {"data-field": "variation", "data-align": "center", "data-sortable": "true", "data-cell-style": "dauStyle"}, "DAU Diff(%)")
+            )
+          )
+        )
+      );
+  }
+});
+
+React.render(React.createElement(deviceTable), document.getElementById('deviceTable') );
+</script>
+
